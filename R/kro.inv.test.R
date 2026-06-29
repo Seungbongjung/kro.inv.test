@@ -346,11 +346,6 @@ sep.exp.power=function(dat,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
     }
 
   }
-
-  if(trans==TRUE){
-    test.stat=n*test.stat-p-1
-  }
-
   return(test.stat)
 
 }
