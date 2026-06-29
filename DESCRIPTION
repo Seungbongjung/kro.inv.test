@@ -1,7 +1,7 @@
 Package: kro.inv.test
 Title: Kronecker-Invariant Tests for High-Dimensional Separability Testing
 Version: 0.1
-Description:  
+Description: 
 Date: 2026-07-03
 Authors@R: 
   person("Bongjung","Sung","bongjung.sung@duke.edu", role = c("aut", "cre")) 
@@ -13,3 +13,5 @@ Maintainer: Bongjung Sung <bongjung.sung@duke.edu>
 Repository: CRAN
 Date/Publication: 
 Config/roxygen2/version: 8.0.0
+URL: https://github.com/Seungbongjung/kro.inv.test
+BugReports: https://github.com/Seungbongjung/kro.inv.test/issues
