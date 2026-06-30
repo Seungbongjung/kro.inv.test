@@ -9,7 +9,7 @@ pi.rank1.core(p1, lambda.gen = TRUE)
 \arguments{
 \item{p1}{the row and column dimensions.}
 
-\item{lambda.gen}{logical, whether to generate a non-spiked eigenvalue or not.}
+\item{lambda.gen}{logical, whether to generate a non-spiked eigenvalue or not.; TRUE by default.}
 }
 \value{
 \code{pi.rank1.core} returns a list with the following elements:
@@ -31,6 +31,7 @@ for \eqn{\lambda \in (0,1)}, positive definite matrices \eqn{K_1, K_2} of the sa
 Here \eqn{M^{1/2}} denotes either symmetric square root or the Cholesky factor of a positive definite matrix \eqn{M}.
 The separable and core components of \eqn{\Sigma}, denoted \eqn{K} and \eqn{C}, are
 \deqn{K=K_2\otimes K_1,\quad C=(1- \lambda) \mathrm{vec}(A) \mathrm{vec}(A)^\top + \lambda I_{p_1^2}.}
+For the exact formula, see Theorem 1 of Sung and Hoff (2025).
 }
 \examples{
 
@@ -38,6 +39,10 @@ set.seed(100)
 p1=10
 pi.rank1.core(p1)
 
+}
+\references{
+Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.
+arXiv preprint arXiv:2506.17463.
 }
 \author{
 Bongjung Sung

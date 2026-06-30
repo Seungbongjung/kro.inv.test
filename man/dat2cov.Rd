@@ -21,7 +21,7 @@ Compute the sample covariance matrix of a given data tensor.
 
 set.seed(100)
 X=array(rnorm(96),dim=c(8,3,4))
-dat2cov(X)
+dat2cov(X,center=TRUE)
 
 }
 \author{

@@ -4,15 +4,17 @@
 \alias{pi.core}
 \title{A covariance matrix with a partial-isotropy rank-r core.}
 \usage{
-pi.core(para.list, root = "sym")
+pi.core(para.list, lambda0 = 0.5, root = "sym")
 }
 \arguments{
-\item{para.list}{the list of parameters constituting the covariance matrix with a partial-isotroy rank-\eqn{r} core.}
+\item{para.list}{the list of parameters constituting the covariance matrix with a partial-isotropy rank-\eqn{r} core.}
 
-\item{root}{the choice of the square root of positive definite matrices; must be either \code{"sym"} (symmetric square root) or \code{"chol"} (Cholesky factor).}
+\item{lambda0}{the pre-specified value of the non-spiked eigenvalue \code{lambda} in a partial-isotropy core. If it is not specified in \code{para.list} or does not belong to (0,1), it will be randomly generated; 0.5 by deafult.}
+
+\item{root}{the choice of the square root of positive definite matrices; must be either \code{"sym"} (symmetric square root) or \code{"chol"} (Cholesky factor), \code{"sym"} by default.}
 }
 \value{
-a \eqn{p1p2 \times p1p2} covariance matrix \eqn{\Sigma} with a partia-istoropy rank-\eqn{r} core.
+a \eqn{p1p2 \times p1p2} covariance matrix \eqn{\Sigma} with a partial-isotropy rank-\eqn{r} core.
 The attribute \eqn{\lambda} of \eqn{\Sigma} denotes the value of the non-spiked eigenvalue.
 }
 \description{

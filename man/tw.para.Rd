@@ -22,12 +22,12 @@ Compute parameters associated with transforming the largest eigenvalue of the sa
 \examples{
 
 set.seed(100)
-p1=20; p2=12; n1=40; n2=24
-X1=matrix(rnorm(p1*n1),ncol=p1)
-X2=matrix(rnorm(p2*n2),ncol=p2)
-K1=crossprod(X1,X1)/n1
-K2=crossprod(X2,X2)/n2
-n=400
+p1=10; p2=10; n=400; p=p1*p2
+X=matrix(rnorm(p*n),ncol=p)
+S=crossprod(X,X)/n
+S.kcd=covKCD::covKCD(S,p1,p2)
+K1=S.kcd$K1
+K2=S.kcd$K2
 tw.para(K1,K2,n)
 
 }

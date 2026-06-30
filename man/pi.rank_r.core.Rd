@@ -13,7 +13,7 @@ pi.rank_r.core(p1, p2, r, lambda.gen = TRUE)
 
 \item{r}{the partial-isotropy rank.}
 
-\item{lambda.gen}{logical, whether to generate a non-spiked eigenvalue or not.}
+\item{lambda.gen}{logical, whether to generate a non-spiked eigenvalue or not; TRUE by default.}
 }
 \value{
 \code{pi.rank_r.core} returns a list with the following elements:
@@ -25,7 +25,7 @@ pi.rank_r.core(p1, p2, r, lambda.gen = TRUE)
 }
 }
 \description{
-Randomly generate a list of parameters for the covariance matrix  with a partial-isotropy rank-r core for matrix-variate data.
+Randomly generate a list of parameters for the covariance matrix  with a partial-isotropy rank-\eqn{r} core for matrix-variate data.
 }
 \details{
 If a core covariance matrix is of rank-\eqn{r} for general \eqn{r}, the dimension \eqn{(p_1, p_2)} should satisfy one of the followings: \eqn{p_1/p_2 + p_2/p_1 <r} or \eqn{p_1 = p_2 r} \eqn{(p_1 \geq p_2)}, or \eqn{p_2 = p_1 r} \eqn{(p_2 \geq p_1)}.
@@ -35,6 +35,7 @@ for \eqn{\lambda \in (0,1)}, positive definite matrices \eqn{K_1} and \eqn{K_2} 
 Here \eqn{M^{1/2}} denotes either symmetric square root or the Cholesky factor of a positive definite matrix \eqn{M}.
 The separable and core components of \eqn{\Sigma}, denoted \eqn{K} and \eqn{C}, are
 \deqn{K=K_2\otimes K_1,\quad C=(1- \lambda) A A^\top + \lambda I_{p_1p_2}.}
+For the exact formula when \eqn{p_1=p_2 r} or \eqn{p_2=p_1 r}, see Theorem 1 of Sung and Hoff (2025).
 }
 \examples{
 
@@ -43,6 +44,10 @@ set.seed(100)
 p1=12; p2=8; r=3
 pi.rank_r.core(p1,p2,r)
 
+}
+\references{
+Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.
+arXiv preprint arXiv:2506.17463.
 }
 \author{
 Bongjung Sung

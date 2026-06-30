@@ -132,15 +132,85 @@ dat2=array(dat2,dim=c(p1,p2,n))
 dat2=aperm(dat2,perm=c(3,1,2))
 kro.inv.test::large.eig.power.dat(dat2,center=FALSE)
 
-#
+# Monte-Carlo simulations of the test statistic based on the extended LRT, applied to the sample core, under the null. 
 
-# 
+p1=16; p2=10; n=100
 
-# 
+test.stat=kro.inv.test::elrt.null(n,p1,p2,center=FALSE)
+hist(test.stat,xlab="Test Statistic",ylab="Density",breaks=25,freq=FALSE,main="Monte-Carlo Approximated Null Distribution")
 
-#
+# Monte-Carlo simulations of the test statistic based on the extended LRT, applied to the sample core, under the alternative. 
 
-# 
+p1=16; p2=10; r=4; n=200
+
+para.list=kro.inv.test::pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
+Sigma=kro.inv.test::pi.core(para.list,lambda0=0.95)
+
+test.stat=kro.inv.test::elrt.alt(n,p1,p2,Sigma,center=FALSE)
+hist(test.stat,xlab="Test Statistic",ylab="Density",breaks=25,freq=FALSE,main="Monte-Carlo Approximated Distribution")
+ 
+# Empirical power of the test based on the extended LRT, applied to the sample core, under Gaussian populations
+
+p1=20; p2=16; r=4; n=200
+
+para.list=kro.inv.test::pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
+Sigma=kro.inv.test::pi.core(para.list,lambda0=0.98)
+
+kro.inv.test::elrt.power(n,p1,p2,Sigma,center=FALSE)
+
+# Empirical power of the test based on the extended LRT, applied to the sample core, with the given data.
+
+p1=20; p2=16; r=4; n=200
+p=p1*p2
+
+para.list=kro.inv.test::pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
+Sigma=kro.inv.test::pi.core(para.list,lambda0=0.98)
+Sigma.root=kro.inv.test::sym.root(Sigma)
+
+dat=crossprod(Sigma.root,matrix(rnorm(n*p),ncol=n))
+dat=array(dat,dim=c(p1,p2,n))
+dat=aperm(dat,perm=c(3,1,2))
+kro.inv.test::elrt.power.dat(dat,center=FALSE)
+
+# Monte-Carlo simulations of the test statistic based on the separable expansion of the sample core under the null. 
+
+p1=20; p2=10; n=300
+
+test.stat=kro.inv.test::sep.exp.null(n,p1,p2,center=FALSE)
+hist(test.stat,xlab="Test Statistic",ylab="Density",breaks=25,freq=FALSE,main="Monte-Carlo Approximated Null Distribution")
+
+# Monte-Carlo simulations of the test statistic based on the separable expansion of the sample core under the alternative. 
+
+p1=20; p2=15; r=4; n=100
+
+para.list=kro.inv.test::pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
+Sigma=kro.inv.test::pi.core(para.list,lambda0=0.95)
+
+test.stat=kro.inv.test::sep.exp.alt(n,p1,p2,Sigma,center=FALSE)
+hist(test.stat,xlab="Test Statistic",ylab="Density",breaks=25,freq=FALSE,main="Monte-Carlo Approximated Distribution")
+
+# Empirical power of the test based on the separable expansion of the sample core under Gaussian populations
+
+p1=20; p2=15; r=4; n=100
+
+para.list=kro.inv.test::pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
+Sigma=kro.inv.test::pi.core(para.list,lambda0=0.98)
+
+kro.inv.test::sep.exp.power(n,p1,p2,Sigma,center=FALSE)
+ 
+# Empirical power of the test based on the separable expansion of the sample core with the given data.
+
+p1=20; p2=16; r=5; n=100
+p=p1*p2
+
+para.list=kro.inv.test::pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
+Sigma=kro.inv.test::pi.core(para.list,lambda0=0.99)
+Sigma.root=kro.inv.test::sym.root(Sigma)
+
+dat=crossprod(Sigma.root,matrix(rnorm(n*p),ncol=n))
+dat=array(dat,dim=c(p1,p2,n))
+dat=aperm(dat,perm=c(3,1,2))
+kro.inv.test::sep.exp.power.dat(dat,center=FALSE)
 
 # Randomly generate a list of parameters for the covariance matrix  with a partial-isotropy rank-1 core.
 

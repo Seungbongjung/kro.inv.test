@@ -21,7 +21,6 @@
 #' @author Bongjung Sung
 #'
 #' @examples
-#'
 #' p1=40; p2=40; n=6400
 #' set.seed(100)
 #' test.stat=large.eig.null(n,p1,p2,center=FALSE)
@@ -114,7 +113,6 @@ large.eig.null=function(n,p1,p2,center=TRUE,trans=TRUE,sigma.known=FALSE,samp.nu
 #' @author Bongjung Sung
 #'
 #' @examples
-#'
 #' p1=20; p2=16; n=640
 #'
 #' set.seed(100)
@@ -235,7 +233,6 @@ large.eig.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,sigma.known=FALSE,sa
 #' @author Bongjung Sung
 #'
 #' @examples
-#'
 #' p1=20; p2=16; n=640
 #'
 #' set.seed(100)
@@ -302,7 +299,6 @@ large.eig.power=function(n,p1,p2,sigma,alpha=0.05,center=TRUE,null.samp.num=1000
 #' @author Bongjung Sung
 #'
 #' @examples
-#'
 #' p1=30; p2=18; r=4; n=200
 #' p=p1*p2
 #'
