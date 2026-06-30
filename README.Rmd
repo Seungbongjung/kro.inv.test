@@ -39,7 +39,7 @@ devtools::install_github("Seungbongjung/kro.inv.test")
 
 ### Example
 
-```{r}
+```{r eval=FALSE}
 
 set.seed(100)
 
