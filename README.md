@@ -9,7 +9,9 @@ Suppose $Y_1,\ldots,Y_n$ are i.i.d. $p_1\times p_2$ random matrices with
 $V[Y_1]=\Sigma$. Using this data, we test the separability of $\Sigma$,
 i.e.,
 
-\[ H_0: \Sigma=\Sigma_2\otimes\Sigma_1 \quad \text{versus} \quad H_1:\Sigma\neq \Sigma_2\otimes \Sigma_1,\]
+$$
+H_0: \Sigma=\Sigma_2\otimes\Sigma_1 \quad \text{versus} \quad H_1:\Sigma\neq \Sigma_2\otimes \Sigma_1,
+$$
 where $\Sigma_1$ and $\Sigma_2$ denote the row and column covariance
 matrices, respectively
 
@@ -21,8 +23,9 @@ obtained by whitening $\Sigma$ through $K$. A key insight is that
 $\Sigma$ is separable if and only if $C=I_{p_1p_2}$. Thus, testing the
 separability of $\Sigma$ is equivalent to testing
 
-\[H_0: C=I_p \quad \text{versus} \quad H_1: C\neq I_p\]
-
+$$ 
+H_0: C=I_p \quad \text{versus} \quad H_1: C\neq I_p 
+$$
 , motivating the use of the sample core $\hat{C}$ for separability
 testing, namely, the core component of the sample covariance matrix $S$.
 
