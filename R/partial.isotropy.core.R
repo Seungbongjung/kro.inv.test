@@ -259,10 +259,11 @@ pi.rank_r.core=function(p1,p2,r,lambda.gen=TRUE){
 #'
 #' Given a list of parameters constituting the covariance matrix with a partial-isotropy rank-\eqn{r} core, the function assembles the covariance matrix using these parameters.
 #'
-#' @param para.list the list of parameters constituting the covariance matrix with a partial-isotroy rank-\eqn{r} core.
+#' @param para.list the list of parameters constituting the covariance matrix with a partial-isotropy rank-\eqn{r} core.
+#' @param lambda0 the pre-specified value of the non-spiked eigenvalue \code{lambda} in a partial-isotropy core. If it is not specified in \code{para.list} or does not belong to (0,1), it will be randomly generated; 0.5 by deafult.
 #' @param root the choice of the square root of positive definite matrices; must be either \code{"sym"} (symmetric square root) or \code{"chol"} (Cholesky factor), \code{"sym"} by default.
 #'
-#' @return a \eqn{p1p2 \times p1p2} covariance matrix \eqn{\Sigma} with a partia-istoropy rank-\eqn{r} core.
+#' @return a \eqn{p1p2 \times p1p2} covariance matrix \eqn{\Sigma} with a partial-isotropy rank-\eqn{r} core.
 #' The attribute \eqn{\lambda} of \eqn{\Sigma} denotes the value of the non-spiked eigenvalue.
 #'
 #' @author Bongjung Sung
@@ -276,7 +277,7 @@ pi.rank_r.core=function(p1,p2,r,lambda.gen=TRUE){
 #' pi.core(para.list)
 #'
 #' @export
-pi.core=function(para.list,root="sym"){
+pi.core=function(para.list,lambda0=0.5,root="sym"){
 
   if(root!="sym" && root!="chol"){
     stop("root should be sym (symmetric square root) or chol (Cholesky factor).")
@@ -287,10 +288,16 @@ pi.core=function(para.list,root="sym"){
   A=para.list$A
   lambda=para.list$lambda
 
-  # If a non-spiked eigenvalue is not specified, then it is randomly generated.
+  # If a non-spiked eigenvalue lambda is not specified in para.list, then it is either
+  # randomly generated or set to be the value as lambda0 provided that lambda0 is in (0,1).
   # This value can be readily verified with the attribute of the resulting object (Sigma).
   if(is.null(lambda)){
-    lambda=runif(1,0,1)
+    if(0<lambda0 && lambda0<1){
+      lambda=lambda0
+    }else{
+      print("Invalid choice of lambda0: it should be in (0,1). A non-spiked eigenvalue is thus randomly generated from Unif(0,1).")
+      lambda=runif(1,0,1)
+    }
   }
 
   p1=ncol(K1); p2=ncol(K2); p=p1*p2
@@ -304,6 +311,7 @@ pi.core=function(para.list,root="sym"){
   K.root=kronecker(K2.root,K1.root)
   r=length(A)/p
   A=matrix(A,nrow=p,ncol=r)
+  core=K.root%*%A
   Sigma=(1-lambda)*tcrossprod(core,core)+lambda*kronecker(K2,K1)
   attr(Sigma,"lambda")=lambda
   return(Sigma)

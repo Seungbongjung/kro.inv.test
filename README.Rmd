@@ -33,6 +33,8 @@ The functions that randomly generate a list of the parameters constituting the c
 
 Sung, Bongjung and Hoff, Peter (2025). [Testing Separability of High-Dimensional Covariance Matrices](https://arxiv.org/abs/2506.17463)
 
+Hoff, Peter, McCormack, Andrew and Zhang, Anru R. (2023). [Core shrinkage covariance estimation for matrix-variate data](https://arxiv.org/abs/2207.12484)
+
 ### Installation
 
 ```{r eval=FALSE}
@@ -53,11 +55,62 @@ test.stat=kro.inv.test::large.eig.null(n,p1,p2,center=FALSE)
 test.stat
 hist(test.stat,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Null Distribution")
 
-#
+# Monte-Carlo simulations of the test statistic based on the largest eigenvalue of the sample core under the alternative.
 
-#
+p1=20; p2=16; n=640
+para.list=kro.inv.test::pi.rank2.core(p1,p2,lambda.gen=FALSE)
 
-# 
+# local alternative
+lambda1=1-(0.5/(320/2+0.5))
+sigma1=kro.inv.test::pi.core(para.list,lambda0=lambda1)
+test.stat1=kro.inv.test::large.eig.alt(n,p1,p2,sigma=sigma1,center=FALSE)
+hist(test.stat1,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Distribution")
+
+# dense alternative
+lambda2=1-(1.2/(320/2+1.2))
+sigma2=kro.inv.test::pi.core(para.list,lambda0=lambda2)
+test.stat2=kro.inv.test::large.eig.alt(n,p1,p2,sigma=sigma2,center=FALSE)
+hist(test.stat2,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Distribution")
+
+# Empirical power of the test based on the largest eigenvalue of the sample core under Gaussian populations
+
+p1=20; p2=16; n=640
+
+set.seed(100)
+para.list=kro.inv.test::pi.rank2.core(p1,p2,lambda.gen=FALSE)
+
+# local alternative
+lambda1=1-(0.5/(320/2+0.5))
+sigma1=kro.inv.test::pi.core(para.list,lambda0=lambda1)
+kro.inv.test::large.eig.power(n,p1,p2,sigma1,center=FALSE)
+
+# dense alternative
+lambda2=1-(0.8/(320/2+0.8))
+sigma2=kro.inv.test::pi.core(para.list,lambda0=lambda2)
+kro.inv.test::large.eig.power(n,p1,p2,sigma2,center=FALSE)
+
+# Empirical power of the test based on the largest eigenvalue of the sample core with the given data.
+
+p1=30; p2=18; r=4; n=200
+p=p1*p2
+
+para.list=kro.inv.test::pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
+
+# local alternative
+Sigma1=kro.inv.test::pi.core(para.list,lambda0=0.999)
+Sigma.root1=kro.inv.test::sym.root(Sigma1)
+dat1=crossprod(Sigma.root1,matrix(rnorm(n*p),ncol=n))
+dat1=array(dat1,dim=c(p1,p2,n))
+dat1=aperm(dat1,perm=c(3,1,2))
+kro.inv.test::large.eig.power.dat(dat1,center=FALSE)
+
+# dense alternative
+Sigma2=kro.inv.test::pi.core(para.list,lambda0=0.8)
+Sigma.root2=kro.inv.test::sym.root(Sigma2)
+dat2=crossprod(Sigma.root2,matrix(rnorm(n*p),ncol=n))
+dat2=array(dat2,dim=c(p1,p2,n))
+dat2=aperm(dat2,perm=c(3,1,2))
+kro.inv.test::large.eig.power.dat(dat2,center=FALSE)
 
 #
 
