@@ -22,7 +22,6 @@
 #' @examples
 #'
 #' p1=40; p2=40; n=6400
-#' y=p1*p2/n
 #' set.seed(100)
 #' test.stat=large.eig.null(n,p1,p2,center=FALSE)
 #' test.stat
@@ -106,7 +105,6 @@ large.eig.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,sigma.known=FALSE,sa
 #'
 #'
 #' @param dat the \eqn{n \times p1 \times p2} data tensor.
-#' @param alpha the level of test; 0.05 by default.
 #' @param center logical,
 #' @param trans logical,
 #' @param samp.num
@@ -114,16 +112,17 @@ large.eig.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,sigma.known=FALSE,sa
 #'
 #' @return \code{large.eig.power} returns a list with the following elements:
 #' \describe{
-#' \item{test.stat}{the row covariance matrix of dimension \eqn{p1 \times p1};}
-#' \item{null.stat}{the column covariance matrix of dimension \eqn{p1 \times p1};}
-#' \item{para.pval}{the factor matrix of a rank-1 core of dimension \eqn{p1 \times p1} ;}
-#' \item{nonpara.pval}{If \code{lambda.gen}=TRUE, the non-spiked eigenvalue \eqn{\lambda \in (0,1)}. Otherwise, \code{NULL}.}
+#' \item{test.stat}{the computed test statistic based on \code{dat};}
+#' \item{null.stat}{the simulated null test statistic;}
+#' \item{para.pval}{the empirical power evaluated based on Monte-Carlo approximated empirical null distribution (\code{null.stat});}
+#' \item{nonpara.pval}{the empirical power evaluated by comparing the test statistic to the Tracy-Widom law.}
 #' }
 #'
 #' @author Bongjung Sung
 #'
 #' @examples
-#' p1=20; p2=20; n=1600
+#'
+#'
 #'
 #' @references
 #' Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.
@@ -133,7 +132,7 @@ large.eig.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,sigma.known=FALSE,sa
 #' @import covKCD
 #' @import RMTstat
 #' @export
-large.eig.power=function(dat,alpha=0.05,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
+large.eig.power=function(dat,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
 
   # dimension of data
   dat.dim=dim(dat)
@@ -349,4 +348,3 @@ sep.exp.power=function(dat,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
   return(test.stat)
 
 }
-

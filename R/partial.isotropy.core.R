@@ -163,7 +163,7 @@ pi.rank2.core=function(p1,p2,lambda.gen=TRUE){
 
 #' Partial-isotropy rank-r core.
 #'
-#' Randomly generate a list of parameters for the covariance matrix  with a partial-isotropy rank-r core for matrix-variate data.
+#' Randomly generate a list of parameters for the covariance matrix  with a partial-isotropy rank-\eqn{r} core for matrix-variate data.
 #'
 #' If a core covariance matrix is of rank-\eqn{r} for general \eqn{r}, the dimension \eqn{(p_1, p_2)} should satisfy one of the followings: \eqn{p_1/p_2 + p_2/p_1 <r} or \eqn{p_1 = p_2 r} \eqn{(p_1 \geq p_2)}, or \eqn{p_2 = p_1 r} \eqn{(p_2 \geq p_1)}.
 #' The covariance matrix \eqn{\Sigma} with a partial-isotropy rank-\eqn{r} core takes the form of
