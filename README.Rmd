@@ -27,7 +27,7 @@ The empirical spectral distribution of $\hat{C}$ is invariant to the unknown val
 
 We implement three Kronecker-invariant tests for Gaussian populations as benchmark cases, based on the largest eigenvalue, the extended LRT for the sphericity, and the separable expansion of the sample core $\hat{C}$. For each test, we provide functions that implement Monte-Carlo simulations of the corresponding test statistics under both the null and alternative hypotheses. The empirical power is evaluated based on a Monte-Carlo simulation scheme. The nonparametric power is also provided for the largest eigenvalue test, whose the asymptotic null distribution was derived, by comparing the test statistic to its asymptotic null distribution, which is the Tracy-Widom law.
 
-The functions that randomly generate a list of the parameters constituting the covariance matrix with a partial-isotropy rank$-r$ core are also provided. For details, see Sung and Hoff (2025).
+The functions that randomly generate a list of the parameters constituting the covariance matrix with a partial-isotropy core are also provided. For details, see Sung and Hoff (2025).
 
 ### Reference
 

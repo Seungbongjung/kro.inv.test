@@ -44,8 +44,8 @@ distribution was derived, by comparing the test statistic to its
 asymptotic null distribution, which is the Tracy-Widom law.
 
 The functions that randomly generate a list of the parameters
-constituting the covariance matrix with a partial-isotropy rank$-r$ core
-are also provided. For details, see Sung and Hoff (2025).
+constituting the covariance matrix with a partial-isotropy core are also
+provided. For details, see Sung and Hoff (2025).
 
 ### Reference
 
