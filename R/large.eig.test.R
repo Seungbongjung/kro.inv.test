@@ -126,7 +126,6 @@ large.eig.null=function(n,p1,p2,center=TRUE,trans=TRUE,sigma.known=FALSE,samp.nu
 #'
 #' @import RSpectra
 #' @import covKCD
-#' @import matrixcalc
 #' @export
 large.eig.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,sigma.known=FALSE,samp.num=1000,iter=10){
 

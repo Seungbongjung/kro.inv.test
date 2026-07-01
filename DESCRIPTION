@@ -10,7 +10,6 @@ Imports:
  RMTstat,
  RSpectra,
  covKCD,
- matrixcalc,
  pracma,
  stats
 URL: https://github.com/Seungbongjung/kro.inv.test
