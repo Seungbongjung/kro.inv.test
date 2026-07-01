@@ -16,16 +16,14 @@
 #' @param samp.num the number of iterations for the Monte-Carlo simulation; 1000 by default.
 #' @param iter the unit number at which to print the number of current iterations; 10 by default.
 #'
-#' @return the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the largest eigenvalue of the sample core.
+#' @return the vector of \code{samp.num} Monte-Carlo simulated null test statistics based on the largest eigenvalue of the sample core.
 #'
 #' @author Bongjung Sung
 #'
 #' @examples
-#' p1=40; p2=40; n=6400
+#' p1=10; p2=10; n=400
 #' set.seed(100)
-#' test.stat=large.eig.null(n,p1,p2,center=FALSE)
-#' test.stat
-#' hist(test.stat,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Null Distribution")
+#' large.eig.null(n,p1,p2,center=FALSE,samp.num=20)
 #'
 #' @references
 #' Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.
@@ -108,27 +106,19 @@ large.eig.null=function(n,p1,p2,center=TRUE,trans=TRUE,sigma.known=FALSE,samp.nu
 #' @param samp.num the number of iterations for the Monte-Carlo simulation; 1000 by default.
 #' @param iter the unit number at which to print the number of current iterations; 10 by default.
 #'
-#' @return the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the largest eigenvalue of the sample core under \eqn{}.
+#' @return the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the largest eigenvalue of the sample core under the alternative.
 #'
 #' @author Bongjung Sung
 #'
 #' @examples
-#' p1=20; p2=16; n=640
+#' p1=12; p2=8; n=120
 #'
 #' set.seed(100)
 #' para.list=pi.rank2.core(p1,p2,lambda.gen=FALSE)
 #'
-#' # local alternative
-#' lambda1=1-(0.5/(320/2+0.5))
-#' sigma1=pi.core(para.list,lambda0=lambda1)
-#' test.stat1=large.eig.alt(n,p1,p2,sigma=sigma1,center=FALSE)
-#' hist(test.stat1,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Distribution")
-#'
-#' # dense alternative
-#' lambda2=1-(1.2/(320/2+1.2))
-#' sigma2=pi.core(para.list,lambda0=lambda2)
-#' test.stat2=large.eig.alt(n,p1,p2,sigma=sigma2,center=FALSE)
-#' hist(test.stat2,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Distribution")
+#' lambda=1-(1/(96/2+1))
+#' Sigma=pi.core(para.list,lambda0=lambda)
+#' large.eig.alt(n,p1,p2,sigma=Sigma,center=FALSE,samp.num=20)
 #'
 #' @references
 #' Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.
@@ -222,7 +212,7 @@ large.eig.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,sigma.known=FALSE,sa
 #'
 #' @return \code{large.eig.power} returns a list of the following elements:
 #' \describe{
-#' \item{alt.stat}{the vector of \code{alt.samp.num} Monte-Carlo simulated test statistics under \eqn{N_{p_1 \times p_2}(0, \code{sigma}) after some transformation};}
+#' \item{alt.stat}{the vector of \code{alt.samp.num} Monte-Carlo simulated test statistics under \eqn{N_{p_1 \times p_2}(0, \code{sigma})} after some transformation;}
 #' \item{null.stat}{the vector of \code{null.samp.num} Monte-Carlo simulated test statistics under the null after some transformation;}
 #' \item{para.pval}{the vector of p-values for each test statistic in \code{alt.stat} evaluated based on Monte-Carlo approximated empirical null distribution (\code{null.stat});}
 #' \item{para.power}{the proportion of the p-values in \code{para.pval} smaller than \code{alpha};}
@@ -233,20 +223,14 @@ large.eig.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,sigma.known=FALSE,sa
 #' @author Bongjung Sung
 #'
 #' @examples
-#' p1=20; p2=16; n=640
+#' p1=10; p2=12; n=200
 #'
 #' set.seed(100)
 #' para.list=pi.rank2.core(p1,p2,lambda.gen=FALSE)
 #'
-#' # local alternative
-#' lambda1=1-(0.5/(320/2+0.5))
-#' sigma1=pi.core(para.list,lambda0=lambda1)
-#' large.eig.power(n,p1,p2,sigma1,center=FALSE)
-#'
-#' # dense alternative
-#' lambda2=1-(0.8/(320/2+0.8))
-#' sigma2=pi.core(para.list,lambda0=lambda2)
-#' large.eig.power(n,p1,p2,sigma2,center=FALSE)
+#' lambda=1-(0.84/(120/2+0.84))
+#' Sigma=pi.core(para.list,lambda0=lambda)
+#' large.eig.power(n,p1,p2,Sigma,center=FALSE,null.samp.num=20,alt.samp.num=20)
 #'
 #' @references
 #' Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.
@@ -299,27 +283,19 @@ large.eig.power=function(n,p1,p2,sigma,alpha=0.05,center=TRUE,null.samp.num=1000
 #' @author Bongjung Sung
 #'
 #' @examples
-#' p1=30; p2=18; r=4; n=200
+#' p1=10; p2=12; r=4; n=150
 #' p=p1*p2
 #'
 #' set.seed(100)
 #' para.list=pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
 #'
 #' # local alternative
-#' Sigma1=pi.core(para.list,lambda0=0.999)
-#' Sigma.root1=sym.root(Sigma1)
-#' dat1=crossprod(Sigma.root1,matrix(rnorm(n*p),ncol=n))
-#' dat1=array(dat1,dim=c(p1,p2,n))
-#' dat1=aperm(dat1,perm=c(3,1,2))
-#' large.eig.power.dat(dat1,center=FALSE)
-#'
-#' # dense alternative
-#' Sigma2=pi.core(para.list,lambda0=0.8)
-#' Sigma.root2=sym.root(Sigma2)
-#' dat2=crossprod(Sigma.root2,matrix(rnorm(n*p),ncol=n))
-#' dat2=array(dat2,dim=c(p1,p2,n))
-#' dat2=aperm(dat2,perm=c(3,1,2))
-#' large.eig.power.dat(dat2,center=FALSE)
+#' Sigma=pi.core(para.list,lambda0=0.8)
+#' Sigma.root=sym.root(Sigma)
+#' dat=crossprod(Sigma.root,matrix(rnorm(n*p),ncol=n))
+#' dat=array(dat,dim=c(p1,p2,n))
+#' dat=aperm(dat,perm=c(3,1,2))
+#' large.eig.power.dat(dat,center=FALSE,samp.num=20)
 #'
 #' @references
 #' Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.

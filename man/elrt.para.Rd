@@ -21,7 +21,7 @@ Compute the parameters associated with transforming the extended LRT statistic b
 }
 \examples{
 
-p1=20; p2=16; n=400
+p1=20; p2=10; n=200
 elrt.para(p1,p2,n)
 
 }

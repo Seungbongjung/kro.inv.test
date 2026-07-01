@@ -13,16 +13,15 @@
 #' @param samp.num the number of iterations for the Monte-Carlo simulation; 1000 by default.
 #' @param iter the unit number at which to print the number of current iterations; 10 by default.
 #'
-#' @return the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the extended LRT, applied to the sample core.
+#' @return the vector of \code{samp.num} Monte-Carlo simulated null test statistics based on the extended LRT, applied to the sample core.
 #'
 #' @author Bongjung Sung
 #'
 #' @examples
-#' p1=16; p2=10; n=100
+#' p1=10; p2=8; n=100
 #'
 #' set.seed(100)
-#' test.stat=elrt.null(n,p1,p2,center=FALSE)
-#' hist(test.stat,xlab="Test Statistic",ylab="Density",breaks=25,freq=FALSE,main="Monte-Carlo Approximated Null Distribution")
+#' elrt.null(n,p1,p2,center=FALSE,samp.num=20)
 #'
 #' @references
 #' Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.
@@ -33,6 +32,7 @@
 #'
 #' @import RSpectra
 #' @import covKCD
+#' @import stats
 #' @export
 elrt.null=function(n,p1,p2,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
 
@@ -44,7 +44,7 @@ elrt.null=function(n,p1,p2,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
 
     # generate the data under the null
     # assuming Sigma=I_p by virtue of the Kronecker-invariance.
-    X=matrix(rnorm(n*p),ncol=p)
+    X=matrix(stats::rnorm(n*p),ncol=p)
     if(center==TRUE){
       X=scale(X,center=center,scale=FALSE)
     }
@@ -93,17 +93,18 @@ elrt.null=function(n,p1,p2,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
 #' @param samp.num the number of iterations for the Monte-Carlo simulation; 1000 by default.
 #' @param iter the unit number at which to print the number of current iterations; 10 by default.
 #'
+#' @return the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the extended LRT, applied to the sample core, under the alternative.
+
 #' @author Bongjung Sung
 #'
 #' @examples
-#' p1=16; p2=10; r=4; n=200
+#' p1=12; p2=10; r=4; n=200
 #'
 #' set.seed(100)
 #' para.list=pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
 #' Sigma=pi.core(para.list,lambda0=0.95)
 #'
-#' test.stat=elrt.alt(n,p1,p2,Sigma,center=FALSE)
-#' hist(test.stat,xlab="Test Statistic",ylab="Density",breaks=25,freq=FALSE,main="Monte-Carlo Approximated Distribution")
+#' elrt.alt(n,p1,p2,Sigma,center=FALSE,samp.num=20)
 #'
 #' @references
 #' Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.
@@ -114,6 +115,7 @@ elrt.null=function(n,p1,p2,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
 #'
 #' @import RSpectra
 #' @import covKCD
+#' @import stats
 #' @export
 elrt.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
 
@@ -135,7 +137,7 @@ elrt.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
 
     # generate the data under the null
     # assuming Sigma=I_p by virtue of the Kronecker-invariance.
-    X=tcrossprod(matrix(rnorm(n*p),ncol=p),sigma.root)
+    X=tcrossprod(matrix(stats::rnorm(n*p),ncol=p),sigma.root)
     if(center==TRUE){
       X=scale(X,center=center,scale=FALSE)
     }
@@ -188,7 +190,7 @@ elrt.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
 #'
 #' @return \code{elrt.power} returns a list of the following elements:
 #' \describe{
-#' \item{alt.stat}{the vector of \code{alt.samp.num} Monte-Carlo simulated test statistics under \eqn{N_{p_1 \times p_2}(0, \code{sigma}) after some transformation};}
+#' \item{alt.stat}{the vector of \code{alt.samp.num} Monte-Carlo simulated test statistics under \eqn{N_{p_1 \times p_2}(0, \code{sigma})} after some transformation;}
 #' \item{null.stat}{the vector of \code{null.samp.num} Monte-Carlo simulated test statistics under the null after some transformation;}
 #' \item{para.pval}{the vector of p-values for each test statistic in \code{alt.stat} evaluated based on Monte-Carlo approximated empirical null distribution (\code{null.stat});}
 #' \item{para.power}{the proportion of the p-values in \code{para.pval} smaller than \code{alpha};}
@@ -197,13 +199,13 @@ elrt.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,samp.num=1000,iter=10){
 #' @author Bongjung Sung
 #'
 #' @examples
-#' p1=20; p2=16; r=4; n=200
+#' p1=12; p2=8; r=4; n=120
 #'
 #' set.seed(100)
 #' para.list=pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
 #' Sigma=pi.core(para.list,lambda0=0.98)
 #'
-#' elrt.power(n,p1,p2,Sigma,center=FALSE)
+#' elrt.power(n,p1,p2,Sigma,center=FALSE,null.samp.num=20,alt.samp.num=20)
 #'
 #' @references
 #' Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.
@@ -255,7 +257,7 @@ elrt.power=function(n,p1,p2,sigma,alpha=0.05,center=TRUE,null.samp.num=1000,alt.
 #' @author Bongjung Sung
 #'
 #' @examples
-#' p1=20; p2=16; r=4; n=200
+#' p1=14; p2=10; r=4; n=200
 #' p=p1*p2
 #'
 #' set.seed(100)
@@ -266,7 +268,7 @@ elrt.power=function(n,p1,p2,sigma,alpha=0.05,center=TRUE,null.samp.num=1000,alt.
 #' dat=crossprod(Sigma.root,matrix(rnorm(n*p),ncol=n))
 #' dat=array(dat,dim=c(p1,p2,n))
 #' dat=aperm(dat,perm=c(3,1,2))
-#' elrt.power.dat(dat,center=FALSE)
+#' elrt.power.dat(dat,center=FALSE,samp.num=20)
 #'
 #' @references
 #' Sung, B. and Hoff, P. (2025). Testing Separability of High-Dimensional Covariance Matrices.

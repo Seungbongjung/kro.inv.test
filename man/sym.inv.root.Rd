@@ -19,8 +19,8 @@ Compute the inverse of the symmetric square root of a positive definite matrix.
 
 # generate a positive definite matrix
 set.seed(100)
-X=matrix(rnorm(16*32),ncol=16)
-S=crossprod(X,X)/32
+X=matrix(rnorm(4*10),ncol=4)
+S=crossprod(X,X)/10
 sym.inv.root(S)
 
 }

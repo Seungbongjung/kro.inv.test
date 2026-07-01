@@ -32,27 +32,19 @@ On the other hand, the nonparametric p-value (\code{nonpara.pval}) is evaluated 
 For details, see Section 5.2 of Sung and Hoff (2025). If the mean is assumed to be known, you may not center the data (\code{center=FALSE}). Otherwise, you should center the data (\code{center=TRUE}).
 }
 \examples{
-p1=30; p2=18; r=4; n=200
+p1=10; p2=12; r=4; n=150
 p=p1*p2
 
 set.seed(100)
 para.list=pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
 
 # local alternative
-Sigma1=pi.core(para.list,lambda0=0.999)
-Sigma.root1=sym.root(Sigma1)
-dat1=crossprod(Sigma.root1,matrix(rnorm(n*p),ncol=n))
-dat1=array(dat1,dim=c(p1,p2,n))
-dat1=aperm(dat1,perm=c(3,1,2))
-large.eig.power.dat(dat1,center=FALSE)
-
-# dense alternative
-Sigma2=pi.core(para.list,lambda0=0.8)
-Sigma.root2=sym.root(Sigma2)
-dat2=crossprod(Sigma.root2,matrix(rnorm(n*p),ncol=n))
-dat2=array(dat2,dim=c(p1,p2,n))
-dat2=aperm(dat2,perm=c(3,1,2))
-large.eig.power.dat(dat2,center=FALSE)
+Sigma=pi.core(para.list,lambda0=0.8)
+Sigma.root=sym.root(Sigma)
+dat=crossprod(Sigma.root,matrix(rnorm(n*p),ncol=n))
+dat=array(dat,dim=c(p1,p2,n))
+dat=aperm(dat,perm=c(3,1,2))
+large.eig.power.dat(dat,center=FALSE,samp.num=20)
 
 }
 \references{

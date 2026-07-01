@@ -11,8 +11,8 @@
 #'
 #' # generate a positive definite matrix
 #' set.seed(100)
-#' X=matrix(rnorm(16*32),ncol=16)
-#' S=crossprod(X,X)/32
+#' X=matrix(rnorm(4*10),ncol=4)
+#' S=crossprod(X,X)/10
 #' sym.inv.root(S)
 #'
 #' @export
@@ -37,8 +37,8 @@ sym.inv.root=function(cov){
 #'
 #' # generate a positive definite matrix
 #' set.seed(100)
-#' X=matrix(rnorm(16*32),ncol=16)
-#' S=crossprod(X,X)/32
+#' X=matrix(rnorm(4*10),ncol=4)
+#' S=crossprod(X,X)/10
 #' sym.root(S)
 #'
 #' @export
@@ -63,7 +63,7 @@ sym.root=function(cov){
 #' @examples
 #'
 #' set.seed(100)
-#' X=array(rnorm(96),dim=c(8,3,4))
+#' X=array(rnorm(36),dim=c(3,3,4))
 #' dat2cov(X,center=TRUE)
 #'
 #' @export
@@ -98,7 +98,7 @@ dat2cov=function(dat,center){
 #' @examples
 #'
 #' set.seed(100)
-#' p1=10; p2=10; n=400; p=p1*p2
+#' p1=3; p2=5; n=60; p=p1*p2
 #' X=matrix(rnorm(p*n),ncol=p)
 #' S=crossprod(X,X)/n
 #' S.kcd=covKCD::covKCD(S,p1,p2)
@@ -106,6 +106,7 @@ dat2cov=function(dat,center){
 #' K2=S.kcd$K2
 #' tw.para(K1,K2,n)
 #'
+#'@import stats
 #'@export
 tw.para=function(K1,K2,n){
 
@@ -122,7 +123,7 @@ tw.para=function(K1,K2,n){
     return(num)
   }
 
-  xi=optimize(f,lower=1e-03,upper=1/K.eig.max)$minimum
+  xi=stats::optimize(f,lower=1e-03,upper=1/K.eig.max)$minimum
   E.plus=1/xi*(1+p/n*sum((xi*K.eig/(1-xi*K.eig))/p))
   gamma0=(p/n)*sum((K.eig/(1-xi*K.eig))^3)/p+1/(xi^3)
   gamma0=gamma0^(-1/3)
@@ -144,7 +145,7 @@ tw.para=function(K1,K2,n){
 #' @author Bongjung Sung
 #' @examples
 #'
-#' p1=20; p2=16; n=400
+#' p1=20; p2=10; n=200
 #' elrt.para(p1,p2,n)
 #'
 #'@export

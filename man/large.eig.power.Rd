@@ -38,7 +38,7 @@ large.eig.power(
 \value{
 \code{large.eig.power} returns a list of the following elements:
 \describe{
-\item{alt.stat}{the vector of \code{alt.samp.num} Monte-Carlo simulated test statistics under \eqn{N_{p_1 \times p_2}(0, \code{sigma}) after some transformation};}
+\item{alt.stat}{the vector of \code{alt.samp.num} Monte-Carlo simulated test statistics under \eqn{N_{p_1 \times p_2}(0, \code{sigma})} after some transformation;}
 \item{null.stat}{the vector of \code{null.samp.num} Monte-Carlo simulated test statistics under the null after some transformation;}
 \item{para.pval}{the vector of p-values for each test statistic in \code{alt.stat} evaluated based on Monte-Carlo approximated empirical null distribution (\code{null.stat});}
 \item{para.power}{the proportion of the p-values in \code{para.pval} smaller than \code{alpha};}
@@ -55,20 +55,14 @@ Finally, the power (\code{nonpara.power}) is evaluated as an analogy to \code{pa
 If the mean is assumed to be known, you may not center the data (\code{center=FALSE}). Otherwise, you should center the data (\code{center=TRUE}).
 }
 \examples{
-p1=20; p2=16; n=640
+p1=10; p2=12; n=200
 
 set.seed(100)
 para.list=pi.rank2.core(p1,p2,lambda.gen=FALSE)
 
-# local alternative
-lambda1=1-(0.5/(320/2+0.5))
-sigma1=pi.core(para.list,lambda0=lambda1)
-large.eig.power(n,p1,p2,sigma1,center=FALSE)
-
-# dense alternative
-lambda2=1-(0.8/(320/2+0.8))
-sigma2=pi.core(para.list,lambda0=lambda2)
-large.eig.power(n,p1,p2,sigma2,center=FALSE)
+lambda=1-(0.84/(120/2+0.84))
+Sigma=pi.core(para.list,lambda0=lambda)
+large.eig.power(n,p1,p2,Sigma,center=FALSE,null.samp.num=20,alt.samp.num=20)
 
 }
 \references{

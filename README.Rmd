@@ -50,7 +50,7 @@ set.seed(100)
 
 # Monte-Carlo simulations of the test statistic based on the largest eigenvalue of the sample core under the null. 
 
-p1=40; p2=40; n=6400
+p1=16; p2=16; n=1024
 test.stat=kro.inv.test::large.eig.null(n,p1,p2,center=FALSE)
 test.stat
 hist(test.stat,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Null Distribution")

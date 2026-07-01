@@ -36,7 +36,7 @@ large.eig.alt(
 \item{iter}{the unit number at which to print the number of current iterations; 10 by default.}
 }
 \value{
-the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the largest eigenvalue of the sample core under \eqn{}.
+the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the largest eigenvalue of the sample core under the alternative.
 }
 \description{
 Implement the Monte-Carlo simulations of the test statistic based on the largest eigenvalue of the sample core \eqn{\hat{C}} for Gaussian populations as benchmark cases under the alternative regime.
@@ -47,22 +47,14 @@ For the details, see (20) of Sung and Hoff (2025). Unless transformed, the funct
 Also, if the mean is assumed to be known, you may not center the data (\code{center=FALSE}). Otherwise, the data center should be centered.
 }
 \examples{
-p1=20; p2=16; n=640
+p1=12; p2=8; n=120
 
 set.seed(100)
 para.list=pi.rank2.core(p1,p2,lambda.gen=FALSE)
 
-# local alternative
-lambda1=1-(0.5/(320/2+0.5))
-sigma1=pi.core(para.list,lambda0=lambda1)
-test.stat1=large.eig.alt(n,p1,p2,sigma=sigma1,center=FALSE)
-hist(test.stat1,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Distribution")
-
-# dense alternative
-lambda2=1-(1.2/(320/2+1.2))
-sigma2=pi.core(para.list,lambda0=lambda2)
-test.stat2=large.eig.alt(n,p1,p2,sigma=sigma2,center=FALSE)
-hist(test.stat2,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Distribution")
+lambda=1-(1/(96/2+1))
+Sigma=pi.core(para.list,lambda0=lambda)
+large.eig.alt(n,p1,p2,sigma=Sigma,center=FALSE,samp.num=20)
 
 }
 \references{

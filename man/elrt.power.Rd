@@ -38,7 +38,7 @@ elrt.power(
 \value{
 \code{elrt.power} returns a list of the following elements:
 \describe{
-\item{alt.stat}{the vector of \code{alt.samp.num} Monte-Carlo simulated test statistics under \eqn{N_{p_1 \times p_2}(0, \code{sigma}) after some transformation};}
+\item{alt.stat}{the vector of \code{alt.samp.num} Monte-Carlo simulated test statistics under \eqn{N_{p_1 \times p_2}(0, \code{sigma})} after some transformation;}
 \item{null.stat}{the vector of \code{null.samp.num} Monte-Carlo simulated test statistics under the null after some transformation;}
 \item{para.pval}{the vector of p-values for each test statistic in \code{alt.stat} evaluated based on Monte-Carlo approximated empirical null distribution (\code{null.stat});}
 \item{para.power}{the proportion of the p-values in \code{para.pval} smaller than \code{alpha};}
@@ -52,13 +52,13 @@ Then the power (\code{para.power}) is evaluated as the proportion of these p-val
 If the mean is assumed to be known, you may not center the data (\code{center=FALSE}). Otherwise, you should center the data (\code{center=TRUE}).
 }
 \examples{
-p1=20; p2=16; r=4; n=200
+p1=12; p2=8; r=4; n=120
 
 set.seed(100)
 para.list=pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
 Sigma=pi.core(para.list,lambda0=0.98)
 
-elrt.power(n,p1,p2,Sigma,center=FALSE)
+elrt.power(n,p1,p2,Sigma,center=FALSE,null.samp.num=20,alt.samp.num=20)
 
 }
 \references{

@@ -32,6 +32,9 @@ sep.exp.alt(
 
 \item{iter}{the unit number at which to print the number of current iterations; 10 by default.}
 }
+\value{
+the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the separable expansion of the sample core under the alternative.
+}
 \description{
 Implement the Monte-Carlo simulations of the test statistic based on the separable expansion of the sample core \eqn{\hat{C}} for Gaussian populations as benchmark cases under the alternative regime.
 Here the sample core \eqn{\hat{C}} refers to the core component of the sample covariance matrix \eqn{S}. The test statistic is given by
@@ -41,14 +44,13 @@ The test statistic may be transformed as \eqn{nT(Y)-p-1} if \code{trans}=TRUE. F
 The population covariance matrix should be specified in \code{sigma}. Also, if the mean is assumed to be known, you may not center the data (\code{center=FALSE}). Otherwise, the data center should be centered.
 }
 \examples{
-p1=20; p2=15; r=4; n=100
+p1=5; p2=3; r=4; n=100
 
 set.seed(100)
 para.list=pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
 Sigma=pi.core(para.list,lambda0=0.95)
 
-test.stat=sep.exp.alt(n,p1,p2,Sigma,center=FALSE)
-hist(test.stat,xlab="Test Statistic",ylab="Density",breaks=25,freq=FALSE,main="Monte-Carlo Approximated Distribution")
+sep.exp.alt(n,p1,p2,Sigma,center=FALSE,samp.num=20)
 
 }
 \references{

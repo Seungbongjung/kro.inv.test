@@ -30,7 +30,7 @@ sep.exp.null(
 \item{iter}{the unit number at which to print the number of current iterations; 10 by default.}
 }
 \value{
-the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the separable expansion of the sample core.
+the vector of \code{samp.num} Monte-Carlo simulated null test statistics based on the separable expansion of the sample core.
 }
 \description{
 Implement the Monte-Carlo simulations of the test statistic based on the separable expansion of the sample core \eqn{\hat{C}} for Gaussian populations as benchmark cases under the null hypothesis of separability.
@@ -41,11 +41,10 @@ The test statistic may be transformed as \eqn{nT(Y)-p-1} if \code{trans}=TRUE.
 For the details, see Section 3.3 and 5.1 of Sung and Hoff (2025). Also, if the mean is assumed to be known, you may not center the data (\code{center=FALSE}). Otherwise, the data center should be centered.
 }
 \examples{
-p1=20; p2=10; n=300
+p1=5; p2=3; n=60
 
 set.seed(100)
-test.stat=sep.exp.null(n,p1,p2,center=FALSE)
-hist(test.stat,xlab="Test Statistic",ylab="Density",breaks=25,freq=FALSE,main="Monte-Carlo Approximated Null Distribution")
+sep.exp.null(n,p1,p2,center=FALSE,samp.num=20)
 
 }
 \references{

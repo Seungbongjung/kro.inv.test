@@ -34,6 +34,7 @@
 #' arXiv preprint arXiv:2506.17463.
 #'
 #' @import pracma
+#' @import stats
 #' @export
 pi.rank1.core=function(p1,lambda.gen=TRUE){
 
@@ -41,16 +42,16 @@ pi.rank1.core=function(p1,lambda.gen=TRUE){
 
   # randomly generate the non-spiked eigenvalue in (0,1) if lambda.gen==TRUE
   if(lambda.gen==TRUE){
-    lambda=runif(1,0,1)
+    lambda=stats::runif(1,0,1)
   }else{
     lambda=NULL
   }
 
   # randomly generate the row and column covariance matrices K1 and K2.
-  K1=matrix(rnorm(p1*n),ncol=p1)
+  K1=matrix(stats::rnorm(p1*n),ncol=p1)
   K1=crossprod(K1,K1)/n
 
-  K2=matrix(rnorm(p1*n),ncol=p1)
+  K2=matrix(stats::rnorm(p1*n),ncol=p1)
   K2=crossprod(K2,K2)/n
 
   # randomly generate the factor matrix for rank-1 core.
@@ -99,6 +100,7 @@ pi.rank1.core=function(p1,lambda.gen=TRUE){
 #' arXiv preprint arXiv:2506.17463.
 #'
 #' @import pracma
+#' @import stats
 #' @export
 pi.rank2.core=function(p1,p2,lambda.gen=TRUE){
 
@@ -109,7 +111,7 @@ pi.rank2.core=function(p1,p2,lambda.gen=TRUE){
 
   # randomly generate the non-spiked eigenvalue in (0,1) if lambda.gen==TRUE
   if(lambda.gen==TRUE){
-    lambda=runif(1,0,1)
+    lambda=stats::runif(1,0,1)
   }else{
     lambda=NULL
   }
@@ -119,16 +121,16 @@ pi.rank2.core=function(p1,p2,lambda.gen=TRUE){
   n1=2*p1; n2=2*p2
 
   # randomly generate the row and column covariance matrices K1 and K2
-  K1=matrix(rnorm(n1*p1),ncol=p1)
+  K1=matrix(stats::rnorm(n1*p1),ncol=p1)
   K1=crossprod(K1,K1)/n1
-  K2=matrix(rnorm(n2*p2),ncol=p2)
+  K2=matrix(stats::rnorm(n2*p2),ncol=p2)
   K2=crossprod(K2,K2)/n2
 
   # randomly generate the factor matrices for rank-2 core
   if(p.max==p.min){
 
     U=pracma::randortho(p1); V=pracma::randortho(p1)
-    D1=diag(sort(runif(p1,0,1),decreasing=TRUE))
+    D1=diag(sort(stats::runif(p1,0,1),decreasing=TRUE))
     D2=diag(sqrt(1-diag(D1)^2)*sample(c(-1,1),size=p1,replace=TRUE))
     A=array(0,dim=c(p1,p1,2))
     A[,,1]=sqrt(p1)*tcrossprod(tcrossprod(U,D1),V)
@@ -201,6 +203,7 @@ pi.rank2.core=function(p1,p2,lambda.gen=TRUE){
 #'
 #' @import pracma
 #' @import covKCD
+#' @import stats
 #' @export
 pi.rank_r.core=function(p1,p2,r,lambda.gen=TRUE){
 
@@ -212,7 +215,7 @@ pi.rank_r.core=function(p1,p2,r,lambda.gen=TRUE){
 
   # randomly generate the non-spiked eigenvalue in (0,1) if lambda.gen==TRUE
   if(lambda.gen==TRUE){
-    lambda=runif(1,0,1)
+    lambda=stats::runif(1,0,1)
   }else{
     lambda=NULL
   }
@@ -222,15 +225,15 @@ pi.rank_r.core=function(p1,p2,r,lambda.gen=TRUE){
   n1=2*p1; n2=2*p2
 
   # randomly generate the row and column covariance matrices K1 and K2
-  K1=matrix(rnorm(n1*p1),ncol=p1)
+  K1=matrix(stats::rnorm(n1*p1),ncol=p1)
   K1=crossprod(K1,K1)/n1
-  K2=matrix(rnorm(n2*p2),ncol=p2)
+  K2=matrix(stats::rnorm(n2*p2),ncol=p2)
   K2=crossprod(K2,K2)/n2
 
   # randomly generate the factor matrices for rank-r core
   if(thres<r){
 
-    A=matrix(rnorm(p*r),ncol=r)
+    A=matrix(stats::rnorm(p*r),ncol=r)
     A.kcd=covKCD::covKCD(tcrossprod(A,A),p1,p2)
     K1.inv.root=sym.inv.root(A.kcd$K1)
     K2.inv.root=sym.inv.root(A.kcd$K2)
@@ -276,6 +279,7 @@ pi.rank_r.core=function(p1,p2,r,lambda.gen=TRUE){
 #' # assembles the covariance matrix using the above list of parameters.
 #' pi.core(para.list)
 #'
+#' @import stats
 #' @export
 pi.core=function(para.list,lambda0=0.5,root="sym"){
 
@@ -296,7 +300,7 @@ pi.core=function(para.list,lambda0=0.5,root="sym"){
       lambda=lambda0
     }else{
       print("Invalid choice of lambda0: it should be in (0,1). A non-spiked eigenvalue is thus randomly generated from Unif(0,1).")
-      lambda=runif(1,0,1)
+      lambda=stats::runif(1,0,1)
     }
   }
 

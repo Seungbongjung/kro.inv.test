@@ -31,7 +31,7 @@ Then the power (\code{para.power}) is evaluated as the proportion of these p-val
 If the mean is assumed to be known, you may not center the data (\code{center=FALSE}). Otherwise, you should center the data (\code{center=TRUE}).
 }
 \examples{
-p1=20; p2=16; r=4; n=200
+p1=14; p2=10; r=4; n=200
 p=p1*p2
 
 set.seed(100)
@@ -42,7 +42,7 @@ Sigma.root=sym.root(Sigma)
 dat=crossprod(Sigma.root,matrix(rnorm(n*p),ncol=n))
 dat=array(dat,dim=c(p1,p2,n))
 dat=aperm(dat,perm=c(3,1,2))
-elrt.power.dat(dat,center=FALSE)
+elrt.power.dat(dat,center=FALSE,samp.num=20)
 
 }
 \references{

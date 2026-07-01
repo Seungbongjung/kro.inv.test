@@ -32,6 +32,9 @@ elrt.alt(
 
 \item{iter}{the unit number at which to print the number of current iterations; 10 by default.}
 }
+\value{
+the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the extended LRT, applied to the sample core, under the alternative.
+}
 \description{
 Implement the Monte-Carlo simulations of the test statistic based on the the extended LRT, applied to the sample core \eqn{\hat{C}}, for Gaussian populations as benchmark cases under the alternative regime.
 Here the sample core \eqn{\hat{C}} refers to the core component of the sample covariance matrix \eqn{S}. The test statistic may be transformed following Theorem 1--2 of Wang and Xu (2021) if \code{trans}=TRUE. This transformation is based on the quantities depending only on \eqn{(n,p_1,p_2)}.
@@ -39,14 +42,13 @@ For the details, see Section 3.2 and 5.1 of Sung and Hoff (2025).
 The population covariance matrix should be specified in \code{sigma}. Also, if the mean is assumed to be known, you may not center the data (\code{center=FALSE}). Otherwise, the data center should be centered.
 }
 \examples{
-p1=16; p2=10; r=4; n=200
+p1=12; p2=10; r=4; n=200
 
 set.seed(100)
 para.list=pi.rank_r.core(p1,p2,r,lambda.gen=FALSE)
 Sigma=pi.core(para.list,lambda0=0.95)
 
-test.stat=elrt.alt(n,p1,p2,Sigma,center=FALSE)
-hist(test.stat,xlab="Test Statistic",ylab="Density",breaks=25,freq=FALSE,main="Monte-Carlo Approximated Distribution")
+elrt.alt(n,p1,p2,Sigma,center=FALSE,samp.num=20)
 
 }
 \references{

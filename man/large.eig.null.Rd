@@ -33,7 +33,7 @@ large.eig.null(
 \item{iter}{the unit number at which to print the number of current iterations; 10 by default.}
 }
 \value{
-the vector of \code{samp.num} Monte-Carlo simulated test statistics based on the largest eigenvalue of the sample core.
+the vector of \code{samp.num} Monte-Carlo simulated null test statistics based on the largest eigenvalue of the sample core.
 }
 \description{
 Implement the Monte-Carlo simulations of the test statistic based on the largest eigenvalue of the sample core \eqn{\hat{C}} for Gaussian populations as benchmark cases under the null hypothesis of separability.
@@ -44,11 +44,9 @@ For the details, see (20) of Sung and Hoff (2025). Unless transformed, the funct
 Also, if the mean is assumed to be known, you may not center the data (\code{center=FALSE}). Otherwise, the data center should be centered.
 }
 \examples{
-p1=40; p2=40; n=6400
+p1=10; p2=10; n=400
 set.seed(100)
-test.stat=large.eig.null(n,p1,p2,center=FALSE)
-test.stat
-hist(test.stat,freq=FALSE,breaks=25,xlab="Test Statistic",ylab="Density",main="Monte-Carlo Approximated Null Distribution")
+large.eig.null(n,p1,p2,center=FALSE,samp.num=20)
 
 }
 \references{
