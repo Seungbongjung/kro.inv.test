@@ -113,9 +113,6 @@ sep.exp.alt=function(n,p1,p2,sigma,center=TRUE,trans=TRUE,samp.num=1000,iter=10)
   if(ncol(sigma)!=p){
     stop("Incorrectly specified covariance matrix: the dimension should match with the data.")
   }
-  if((matrixcalc::is.positive.definite(sigma))!=TRUE){
-    stop("Incorrectly specified covariance matrix: it should be strictly positive definite.")
-  }
 
   # symmetric root of covariance matrix
   sigma.root=sym.root(sigma)
